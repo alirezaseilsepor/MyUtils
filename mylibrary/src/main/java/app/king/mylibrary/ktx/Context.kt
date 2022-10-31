@@ -54,6 +54,9 @@ fun Context.getColorCompatAttr(@AttrRes color: Int, alpha: Int = 255): Int {
     }
 }
 
+fun Context.getHexColorCompatAttr(@AttrRes color: Int, alpha: Int = 255) =
+    String.format("#%06X", 0xFFFFFF and getColorCompatAttr(color, alpha))
+
 
 fun Fragment.getDrawableCompat(@DrawableRes id: Int): Drawable {
     return AppCompatResources.getDrawable(requireContext(), id)!!
