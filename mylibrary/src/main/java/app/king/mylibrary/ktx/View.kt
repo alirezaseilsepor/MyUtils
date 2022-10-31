@@ -35,6 +35,7 @@ import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -43,7 +44,9 @@ import app.king.mylibrary.util.OnSafeClickListener
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
-import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
@@ -106,6 +109,14 @@ fun ImageView.setTintResource(@ColorRes color: Int) {
 
 fun ImageView.setTintColor(color: Int) {
     setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN)
+}
+
+fun ImageView.setTintColorAttr(attr: Int, alpha: Int = 255) {
+    setColorFilter(context.getColorCompatAttr(attr, alpha), android.graphics.PorterDuff.Mode.SRC_IN)
+}
+
+fun MaterialRadioButton.setTintColorAttr(attr: Int, alpha: Int = 255) {
+    buttonTintList = ColorStateList.valueOf(context.getColorCompatAttr(attr, alpha))
 }
 
 fun ProgressBar.setProgressIng(position: Int) {
@@ -319,6 +330,18 @@ inline fun TabLayout.setOnTabSelectListener(crossinline onLayout: (TabLayout.Tab
     })
 }
 
+fun View.setOnBackGroundColorAttr(@AttrRes attr: Int, alpha: Int = 255) {
+    setBackgroundColor(
+        context.getColorCompatAttr(attr, alpha)
+    )
+}
+
+fun TextView.setTextColorAttr(@AttrRes attr: Int, alpha: Int = 255) {
+    setTextColor(
+        context.getColorCompatAttr(attr, alpha)
+    )
+}
+
 fun TextView.startCountAnimation(
     valueForm: Int = 100,
     valueTo: Int = 0,
@@ -339,12 +362,21 @@ fun TextView.startCountAnimation(
 }
 
 
-
+fun View.setShapeColorFilterAttr(@AttrRes attr: Int, alpha: Int = 255) {
+    val color = context.getColorCompatAttr(attr, alpha)
+    val drawable = DrawableCompat.wrap(background)
+    DrawableCompat.setTint(drawable, color)
+    background = drawable
+}
 
 fun View.setShapeColorFilter(color: Int) {
     val drawable = DrawableCompat.wrap(background)
     DrawableCompat.setTint(drawable, color)
     background = drawable
+}
+
+fun MaterialCardView.setCardBackgroundColorAttr(@AttrRes attr: Int, alpha: Int = 255) {
+    setCardBackgroundColor(context.getColorCompatAttr(attr, alpha))
 }
 
 fun View.springAnimationTrait() {
@@ -433,7 +465,9 @@ fun RecyclerView.smoothSnapToPosition(
     layoutManager?.startSmoothScroll(smoothScroller)
 }
 
-
+fun MaterialButton.strokeColorCompat(@AttrRes attr: Int, alpha: Int = 255) {
+    strokeColor = ColorStateList.valueOf(context.getColorCompatAttr(attr, alpha))
+}
 
 
 fun ImageView.loadCircle(

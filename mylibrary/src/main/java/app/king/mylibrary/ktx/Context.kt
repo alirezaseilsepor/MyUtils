@@ -15,16 +15,15 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.RawRes
-import androidx.annotation.StringRes
+import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import java.util.*
@@ -40,6 +39,20 @@ fun Context.getColorCompatStateList(@ColorRes id: Int): ColorStateList {
 }
 
 fun Context.getColorCompat(color: Int) = ContextCompat.getColor(this, color)
+
+@ColorInt
+fun Context.getColorCompatAttr(@AttrRes color: Int, alpha: Int = 255): Int {
+    val mColorByAttr = HashMap<Int, Int>()
+    return mColorByAttr.getOrPut(color) {
+        try {
+            val colorTemp = TypedValue()
+            theme.resolveAttribute(color, colorTemp, true)
+            ColorUtils.setAlphaComponent(colorTemp.data, alpha)
+        } catch (e: Exception) {
+            ContextCompat.getColor(this, android.R.color.white)
+        }
+    }
+}
 
 
 fun Fragment.getDrawableCompat(@DrawableRes id: Int): Drawable {
