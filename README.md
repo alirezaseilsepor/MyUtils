@@ -1,2 +1,2 @@
 ### Install
-### implementation 'com.github.alirezaseilsepor:MyUtils:1.0.4'
+### implementation 'ir.king-app:utils:1.0.5'
