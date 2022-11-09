@@ -51,8 +51,13 @@ class GeneralCalendar private constructor() {
         this.hijriDate = gc.hijriDate
     }
 
-    constructor(day: Int, month: Int, year: Int) : this() {
-        when (GeneralCalendarType) {
+    constructor(
+        day: Int,
+        month: Int,
+        year: Int,
+        type: CalendarType = GeneralCalendarType,
+    ) : this() {
+        when (type) {
             CalendarType.GEORGIAN -> {
                 val calendar = Calendar.getInstance()
                 calendar.set(Calendar.DAY_OF_MONTH, day)
