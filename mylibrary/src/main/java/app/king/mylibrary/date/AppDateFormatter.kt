@@ -41,12 +41,15 @@ class AppDateFormatter {
     /**
     parse by CalendarType
      */
-    fun parse(dateString: String): GeneralCalendar? {
+    fun parse(
+        dateString: String,
+        generalCalendarType: GeneralCalendar.CalendarType = GeneralCalendar.GeneralCalendarType,
+    ): GeneralCalendar? {
         val result = runCatching {
             if (dateString.length > 10)
                 parsCompleteDate(dateString)
             else {
-                when (GeneralCalendar.GeneralCalendarType) {
+                when (generalCalendarType) {
                     GeneralCalendar.CalendarType.GEORGIAN -> {
                         return parsGeorgianDate(dateString)
                     }
@@ -161,27 +164,32 @@ class AppDateFormatter {
     2012-07-01T05:29:21.123GMT+5:30
      */
     @Throws(ParseException::class)
-    fun parsCompleteDate(dateString: String): GeneralCalendar? {
-        var standardDate = dateString
-        if (!dateString.contains(".")) {
-            standardDate = "$standardDate.000"
-        }
-        standardDate = standardDate.lowercase(Locale.ENGLISH).replace("z", "")
+    fun parsCompleteDate(dateString: String, isEnableUtc: Boolean = false): GeneralCalendar? {
+        if (isEnableUtc) {
+            var standardDate = dateString
+            if (!dateString.contains(".")) {
+                standardDate = "$standardDate.000"
+            }
+            standardDate = standardDate.lowercase(Locale.ENGLISH).replace("z", "")
 
-        val formatter =
-            ChronoFormatter.setUp(Moment.axis(TemporalType.JAVA_UTIL_DATE), Locale.ENGLISH)
-                .addPattern(PATTERN_COMPLETE_DATE,
-                    PatternType.CLDR)
-                .addIgnorableWhitespace()
-                .build()
+            val formatter =
+                ChronoFormatter.setUp(Moment.axis(TemporalType.JAVA_UTIL_DATE), Locale.ENGLISH)
+                    .addPattern(PATTERN_COMPLETE_DATE,
+                        PatternType.CLDR)
+                    .addIgnorableWhitespace()
+                    .build()
 
-        val pLog = ParseLog()
-        val date = formatter.parse(standardDate, pLog)
-        return if (date == null || pLog.isError) {
-            Log.e(LOG, "ERROR MESSAGE= convert CompleteDate $standardDate ${pLog.errorMessage}")
-            null
+            val pLog = ParseLog()
+            val date = formatter.parse(standardDate, pLog)
+            return if (date == null || pLog.isError) {
+                Log.e(LOG, "ERROR MESSAGE= convert CompleteDate $standardDate ${pLog.errorMessage}")
+                null
+            } else {
+                GeneralCalendar(date)
+            }
         } else {
-            GeneralCalendar(date)
+            val dateFormat = SimpleDateFormat(SERVER_GEORGIAN_DATE, Locale.ENGLISH)
+            return GeneralCalendar(dateFormat.parse(dateString)!!)
         }
     }
 
