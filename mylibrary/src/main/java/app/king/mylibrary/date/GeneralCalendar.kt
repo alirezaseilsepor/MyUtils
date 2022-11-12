@@ -442,7 +442,7 @@ class GeneralCalendar private constructor() {
     }
 
     fun getDateForServer(isEnableUtc: Boolean = false): String {
-        return appDateFormatter.getDateForServer(this)
+        return appDateFormatter.getDateForServer(this, isEnableUtc)
     }
 
     fun getListMonths(): Array<String> {

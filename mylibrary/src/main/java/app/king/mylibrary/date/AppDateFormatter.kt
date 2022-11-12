@@ -43,11 +43,12 @@ class AppDateFormatter {
      */
     fun parse(
         dateString: String,
+        isEnableUtc: Boolean = false,
         generalCalendarType: GeneralCalendar.CalendarType = GeneralCalendar.GeneralCalendarType,
     ): GeneralCalendar? {
         val result = runCatching {
             if (dateString.length > 10)
-                parsCompleteDate(dateString)
+                parsCompleteDate(dateString, isEnableUtc)
             else {
                 when (generalCalendarType) {
                     GeneralCalendar.CalendarType.GEORGIAN -> {
