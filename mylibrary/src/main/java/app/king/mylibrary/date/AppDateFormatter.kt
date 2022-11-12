@@ -80,7 +80,7 @@ class AppDateFormatter {
                 PatternType.CLDR)
             .addIgnorableWhitespace()
             .build()
-            .withTimezone(Timezone.of("UTC").id)
+
         val pLog = ParseLog()
 
         val plainDate = formatter.parse(cacheDateString, pLog)
@@ -139,7 +139,7 @@ class AppDateFormatter {
             .addIgnorableWhitespace()
             .build()
             .withCalendarVariant(HijriCalendar.VARIANT_UMALQURA)
-            .withTimezone(Timezone.of("UTC").id)
+
         val pLog = ParseLog()
 
         val date = formatter.parse(cacheDateString, pLog)
@@ -174,7 +174,7 @@ class AppDateFormatter {
                     PatternType.CLDR)
                 .addIgnorableWhitespace()
                 .build()
-                .withTimezone(Timezone.of("UTC").id)
+
         val pLog = ParseLog()
         val date = formatter.parse(standardDate, pLog)
         return if (date == null || pLog.isError) {
@@ -349,9 +349,10 @@ class AppDateFormatter {
     }
 
 
-    fun getDateForServer(generalCalendar: GeneralCalendar): String {
+    fun getDateForServer(generalCalendar: GeneralCalendar, isEnableUtc: Boolean = false): String {
         val dateFormat = SimpleDateFormat(SERVER_GEORGIAN_DATE, Locale.ENGLISH)
-        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+        if (isEnableUtc)
+            dateFormat.timeZone = TimeZone.getTimeZone("UTC")
         return dateFormat.format(generalCalendar.getGeorgianDate())
     }
 }

@@ -2,6 +2,7 @@ package app.king.mylibrary.date
 
 
 import androidx.annotation.Keep
+import app.king.mylibrary.ktx.withZeroNumber
 import net.time4j.PlainDate
 import net.time4j.Weekday
 import net.time4j.calendar.HijriCalendar
@@ -440,7 +441,7 @@ class GeneralCalendar private constructor() {
         }
     }
 
-    fun getDateForServer(): String {
+    fun getDateForServer(isEnableUtc: Boolean = false): String {
         return appDateFormatter.getDateForServer(this)
     }
 
@@ -500,13 +501,23 @@ class GeneralCalendar private constructor() {
         return grgDate.after(gc.grgDate)
     }
 
+    //bigger
+    fun isAfterOrEqual(gc: GeneralCalendar): Boolean {
+        return grgDate.after(gc.grgDate) || this == gc
+    }
+
     //smaller
     fun isBefore(gc: GeneralCalendar): Boolean {
         return grgDate.before(gc.grgDate)
     }
 
+    //smaller
+    fun isBeforeOrEqual(gc: GeneralCalendar): Boolean {
+        return grgDate.before(gc.grgDate) || this == gc
+    }
+
     fun getId(): Int {
-        return (getYear().toString() + getMonth().toString() + getDay().toString()).toInt()
+        return (getYear().toString() + getMonth().withZeroNumber() + getDay().withZeroNumber()).toInt()
     }
 
     fun copy(): GeneralCalendar {
