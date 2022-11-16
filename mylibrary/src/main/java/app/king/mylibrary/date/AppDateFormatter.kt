@@ -372,13 +372,16 @@ enum class DateFormat(val format: String) {
     DEFAULT("${AppDateFormatter.YEAR}/${AppDateFormatter.MONTH}/${AppDateFormatter.DAY}"),
     DEFAULT_CLOCK("${AppDateFormatter.YEAR}/${AppDateFormatter.MONTH}/${AppDateFormatter.DAY} ${AppDateFormatter.HOUR}:${AppDateFormatter.MINUTES}"),
     LINE("${AppDateFormatter.YEAR}-${AppDateFormatter.MONTH}-${AppDateFormatter.DAY}"),
-    MONTH_NAME_ONLY("${AppDateFormatter.MONTH_N}"),
+    MONTH_NAME_FULL("${AppDateFormatter.DAY_NONE_ZERO} ${AppDateFormatter.MONTH_N} ${AppDateFormatter.YEAR}"),
+    MONTH_NAME_FULL_REVERSE("${AppDateFormatter.YEAR} ${AppDateFormatter.MONTH_N} ${AppDateFormatter.DAY_NONE_ZERO}"),
     MONTH_NAME_YEAR("${AppDateFormatter.YEAR} ${AppDateFormatter.MONTH_N}"),
     MONTH_NAME_DAY("${AppDateFormatter.DAY_NONE_ZERO} ${AppDateFormatter.MONTH_N}"),
     CLOCK("${AppDateFormatter.YEAR}-${AppDateFormatter.MONTH}-${AppDateFormatter.DAY}:${AppDateFormatter.HOUR}:${AppDateFormatter.MINUTES}"),
     CLOCK_SECOND("${AppDateFormatter.YEAR}-${AppDateFormatter.MONTH}-${AppDateFormatter.DAY}:${AppDateFormatter.HOUR}:${AppDateFormatter.MINUTES}:${AppDateFormatter.SECOND}"),
     CLOCK_MILLI("${AppDateFormatter.YEAR}-${AppDateFormatter.MONTH}-${AppDateFormatter.DAY}:${AppDateFormatter.HOUR}:${AppDateFormatter.MINUTES}:${AppDateFormatter.SECOND}.${AppDateFormatter.MILLI}"),
     DAY_NAME("${AppDateFormatter.DAY_N} ${AppDateFormatter.DAY} ${AppDateFormatter.MONTH_N} ${AppDateFormatter.YEAR}"),
+    DAY_NAME_NONE_ZERO("${AppDateFormatter.DAY_N} ${AppDateFormatter.DAY_NONE_ZERO} ${AppDateFormatter.MONTH_N} ${AppDateFormatter.YEAR}"),
+    DAY_NAME_NONE_YEAR("${AppDateFormatter.DAY_N} ${AppDateFormatter.DAY_NONE_ZERO} ${AppDateFormatter.MONTH_N}"),
 }
 
 

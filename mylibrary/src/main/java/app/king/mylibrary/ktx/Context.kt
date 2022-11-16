@@ -15,8 +15,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.Display
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.*
@@ -25,6 +28,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.hardware.display.DisplayManagerCompat
 import androidx.fragment.app.Fragment
 import java.util.*
 
@@ -206,4 +210,28 @@ fun Activity.requestPermissionForAccessMediaLocation() {
         )
     }
 }
+
+fun Context.getHexColorResCompat(@ColorRes color: Int) =
+    String.format("#%06X", 0xFFFFFF and getColorCompat(color))
+
+fun Context.getHexColorCompat(@ColorInt color: Int) =
+    String.format("#%06X", 0xFFFFFF and color)
+
+fun Context.getScreenWidth(): Int {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
+        val defaultDisplay =
+            DisplayManagerCompat.getInstance(this).getDisplay(Display.DEFAULT_DISPLAY)
+        val displayContext = this.createDisplayContext(defaultDisplay!!)
+
+        displayContext.resources.displayMetrics.widthPixels
+    } else {
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val displayMetrics = DisplayMetrics()
+        @Suppress("DEPRECATION")
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        displayMetrics.widthPixels
+    }
+}
+
 
