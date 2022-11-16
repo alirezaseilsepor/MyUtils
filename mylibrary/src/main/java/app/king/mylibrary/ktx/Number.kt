@@ -94,7 +94,7 @@ fun humanReadableByteCountSI(bytes: Long): String {
     return java.lang.String.format(Locale.US, "%.1f %cB", byte / 1000.0, ci.current())
 }
 
-fun Int.withZeroNumber(): String = String.format(Locale.US, "%02d", this)
+fun Number.withZeroNumber(): String = String.format(Locale.US, "%02d", this)
 
 
 val Int.dp: Float
