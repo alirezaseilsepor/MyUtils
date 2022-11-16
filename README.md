@@ -1,2 +1,2 @@
 ### Install
-### implementation 'ir.king-app:utils:1.0.9'
+### implementation 'ir.king-app:utils:1.1.0'
