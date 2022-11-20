@@ -199,50 +199,22 @@ class AppDateFormatter {
     format global generalCalendar to String
      */
     @Throws(ParseException::class)
-    fun format(generalCalendar: GeneralCalendar, pattern: DateFormat = DateFormat.DEFAULT): String {
-        val calendar = Calendar.getInstance()
-        calendar.time = generalCalendar.getGeorgianDate()
-        var result = ""
-        pattern.format.forEach { ch ->
-            val data: String
-            when (ch) {
-                YEAR -> {
-                    data = generalCalendar.getYear().toString()
-                }
-                MONTH -> {
-                    data = generalCalendar.getMonth().withZeroNumber()
-                }
-                MONTH_N -> {
-                    data = generalCalendar.getMonthName()
-                }
-                DAY -> {
-                    data = generalCalendar.getDay().withZeroNumber()
-                }
-                DAY_N -> {
-                    data = generalCalendar.getDayName()
-                }
-                DAY_NONE_ZERO -> {
-                    data = generalCalendar.getDay().toString()
-                }
-                HOUR -> {
-                    data = calendar.get(Calendar.HOUR_OF_DAY).withZeroNumber()
-                }
-                MINUTES -> {
-                    data = calendar.get(Calendar.MINUTE).withZeroNumber()
-                }
-                SECOND -> {
-                    data = calendar.get(Calendar.SECOND).withZeroNumber()
-                }
-                MILLI -> {
-                    data = calendar.get(Calendar.MILLISECOND).withZeroNumber()
-                }
-                else -> {
-                    data = ch.toString()
-                }
+    fun format(
+        generalCalendar: GeneralCalendar,
+        pattern: DateFormat = DateFormat.DEFAULT,
+        type: GeneralCalendar.CalendarType = GeneralCalendar.GeneralCalendarType,
+    ): String {
+        return when (type) {
+            GeneralCalendar.CalendarType.GEORGIAN -> {
+                formatGeorgianDate(generalCalendar, pattern)
             }
-            result += data
+            GeneralCalendar.CalendarType.PERSIAN -> {
+                formatPersianDate(generalCalendar, pattern)
+            }
+            GeneralCalendar.CalendarType.HIJRI -> {
+                formatHijriDate(generalCalendar, pattern)
+            }
         }
-        return result
     }
 
 
