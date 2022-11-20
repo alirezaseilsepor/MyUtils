@@ -540,8 +540,11 @@ class GeneralCalendar private constructor() {
         return this.grgDate
     }
 
-    fun format(type: DateFormat = DateFormat.DEFAULT): String {
-        return appDateFormatter.format(this, type)
+    fun format(
+        dateFormat: DateFormat = DateFormat.DEFAULT,
+        type: CalendarType = GeneralCalendarType,
+    ): String {
+        return appDateFormatter.format(this, dateFormat, type)
     }
 
     fun getTimeMillis(): Long {
