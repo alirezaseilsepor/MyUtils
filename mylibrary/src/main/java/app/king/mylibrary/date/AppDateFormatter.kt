@@ -250,6 +250,61 @@ class AppDateFormatter {
     format PersianCalendar to String
      */
     @Throws(ParseException::class)
+    fun formatGeorgianDate(
+        generalCalendar: GeneralCalendar,
+        pattern: DateFormat = DateFormat.DEFAULT,
+    ): String {
+        val calendar = Calendar.getInstance()
+        calendar.time = generalCalendar.getGeorgianDate()
+        var result = ""
+
+        pattern.format.forEach { ch ->
+            val data: String
+            when (ch) {
+                YEAR -> {
+                    data = generalCalendar.getGeorgianYear().toString()
+                }
+                MONTH -> {
+                    data = generalCalendar.getGeorgianMonth().withZeroNumber()
+                }
+                MONTH_N -> {
+                    data = generalCalendar.getGeorgianMonthName()
+                }
+                DAY -> {
+                    data = generalCalendar.getGeorgianDay().withZeroNumber()
+                }
+                DAY_N -> {
+                    data = generalCalendar.getDayName(GeneralCalendar.CalendarType.GEORGIAN)
+                }
+                DAY_NONE_ZERO -> {
+                    data = generalCalendar.getGeorgianDay().toString()
+                }
+                HOUR -> {
+                    data = calendar.get(Calendar.HOUR_OF_DAY).withZeroNumber()
+                }
+                MINUTES -> {
+                    data = calendar.get(Calendar.MINUTE).withZeroNumber()
+                }
+                SECOND -> {
+                    data = calendar.get(Calendar.SECOND).withZeroNumber()
+                }
+                MILLI -> {
+                    data = calendar.get(Calendar.MILLISECOND).withZeroNumber()
+                }
+                else -> {
+                    data = ch.toString()
+                }
+            }
+            result += data
+        }
+        return result
+    }
+
+
+    /**
+    format PersianCalendar to String
+     */
+    @Throws(ParseException::class)
     fun formatPersianDate(
         generalCalendar: GeneralCalendar,
         pattern: DateFormat = DateFormat.DEFAULT,
@@ -275,7 +330,7 @@ class AppDateFormatter {
                     data = persianCalendar.dayOfMonth.withZeroNumber()
                 }
                 DAY_N -> {
-                    data = persianCalendar.dayOfWeek.getDisplayName(Locale("fa"))
+                    data = generalCalendar.getDayName(GeneralCalendar.CalendarType.PERSIAN)
                 }
                 DAY_NONE_ZERO -> {
                     data = persianCalendar.dayOfMonth.toString()
@@ -331,7 +386,7 @@ class AppDateFormatter {
                     data = hijriCalendar.dayOfMonth.withZeroNumber()
                 }
                 DAY_N -> {
-                    data = hijriCalendar.dayOfWeek.getDisplayName(Locale("fa"))
+                    data = generalCalendar.getDayName(GeneralCalendar.CalendarType.HIJRI)
                 }
                 DAY_NONE_ZERO -> {
                     data = hijriCalendar.dayOfMonth.toString()

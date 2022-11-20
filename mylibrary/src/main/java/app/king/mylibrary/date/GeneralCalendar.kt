@@ -144,8 +144,8 @@ class GeneralCalendar private constructor() {
         }
     }
 
-    fun getDayName(): String {
-        return when (GeneralCalendarType) {
+    fun getDayName(type: CalendarType = GeneralCalendarType): String {
+        return when (type) {
             CalendarType.GEORGIAN -> {
                 persianDate.dayOfWeek.getDisplayName(Locale.ENGLISH)
             }
@@ -195,9 +195,9 @@ class GeneralCalendar private constructor() {
         }
     }
 
-    fun getDayOfWeek(): Int {
+    fun getDayOfWeek(type: CalendarType = GeneralCalendarType): Int {
 
-        return when (GeneralCalendarType) {
+        return when (type) {
             CalendarType.GEORGIAN, CalendarType.HIJRI -> {
                 val calendar = Calendar.getInstance()
                 calendar.time = grgDate
@@ -428,9 +428,7 @@ class GeneralCalendar private constructor() {
     fun getMonthName(): String {
         return when (GeneralCalendarType) {
             CalendarType.GEORGIAN -> {
-                val calendar = Calendar.getInstance()
-                calendar.time = grgDate
-                calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()) ?: ""
+                getGeorgianMonthName()
             }
             CalendarType.HIJRI -> {
                 hijriDate.month.getDisplayName(Locale.ENGLISH)
@@ -439,6 +437,12 @@ class GeneralCalendar private constructor() {
                 persianDate.month.getDisplayName(Locale("fa"))
             }
         }
+    }
+
+    fun getGeorgianMonthName(): String {
+        val calendar = Calendar.getInstance()
+        calendar.time = grgDate
+        return calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) ?: ""
     }
 
     fun getDateForServer(isEnableUtc: Boolean = false): String {
