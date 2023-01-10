@@ -542,6 +542,15 @@ fun TextView.setDrawableCompat(
     setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom)
 }
 
+fun TextView.setDrawableCompat(
+    @DrawableRes left: Int = 0,
+    @DrawableRes top: Int = 0,
+    @DrawableRes right: Int = 0,
+    @DrawableRes bottom: Int = 0,
+) {
+    setCompoundDrawablesRelativeWithIntrinsicBounds(left, top, right, bottom)
+}
+
 fun RadioButton.setTintColorAttr(attr: Int, alpha: Int = 255) {
     buttonTintList = ColorStateList.valueOf(context.getColorCompatAttr(attr, alpha))
 }
