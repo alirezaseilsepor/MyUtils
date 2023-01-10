@@ -12,6 +12,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
@@ -21,10 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.*
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.Group
@@ -520,23 +518,30 @@ fun ViewPager2.reduceDragSensitivity(f: Int = 4) {
     touchSlopField.set(recyclerView, touchSlop * f)       // "8" was obtained experimentally
 }
 
-fun AppCompatTextView.setDrawable(
-    @DrawableRes drawable: Int,
-    drawablePosition: DrawablePosition = DrawablePosition.Start,
-) {
-    when (drawablePosition) {
-        DrawablePosition.Start ->
-            setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, 0, 0, 0)
-        DrawablePosition.End ->
-            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, drawable, 0)
-        DrawablePosition.Top ->
-            setCompoundDrawablesRelativeWithIntrinsicBounds(0, drawable, 0, 0)
-        DrawablePosition.Bottom ->
-            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, drawable)
+fun RecyclerView.setSafeScrollListener(listener: RecyclerView.OnScrollListener) {
+    clearOnScrollListeners()
+    addOnScrollListener(listener)
+}
+
+
+fun TextView.setAppearance(res: Int) {
+    if (Build.VERSION.SDK_INT < 23) {
+        @Suppress("DEPRECATION")
+        setTextAppearance(this.context, res)
+    } else {
+        setTextAppearance(res)
     }
 }
 
-@Keep
-enum class DrawablePosition {
-    Start, End, Top, Bottom
+fun TextView.setDrawableCompat(
+    @Nullable left: Drawable? = null,
+    @Nullable top: Drawable? = null,
+    @Nullable right: Drawable? = null,
+    @Nullable bottom: Drawable? = null,
+) {
+    setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom)
+}
+
+fun RadioButton.setTintColorAttr(attr: Int, alpha: Int = 255) {
+    buttonTintList = ColorStateList.valueOf(context.getColorCompatAttr(attr, alpha))
 }

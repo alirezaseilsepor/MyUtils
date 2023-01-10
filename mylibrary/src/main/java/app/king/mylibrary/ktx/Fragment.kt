@@ -2,6 +2,7 @@
 
 package app.king.mylibrary.ktx
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Build
@@ -16,15 +17,19 @@ import app.king.mylibrary.ktx.hideKeyboard
 fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }
 }
+
 fun Fragment.screenOn(){
    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 }
+
+@SuppressLint("SourceLockedOrientationActivity")
 fun Fragment.changeScreenOrientation(landscape:Boolean){
     if (landscape)
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     else
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 }
+
 fun Fragment.hideStatusBar() {
     requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -68,4 +73,8 @@ fun Fragment.shareText(text:String){
     )
     sendIntent.type = "text/plain"
     startActivity(sendIntent)
+}
+
+fun Fragment.getOrientation(): Int? {
+    return  activity?.resources?.configuration?.orientation
 }

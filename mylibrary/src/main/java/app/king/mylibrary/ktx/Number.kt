@@ -8,6 +8,7 @@ import java.text.StringCharacterIterator
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
+import kotlin.time.Duration.Companion.milliseconds
 
 fun Float.toExactDouble(): Double =
     this.toString().toDouble()
@@ -64,14 +65,13 @@ fun Long?.getPrettyFormatForNumbers(): String {
 /**
  * converts seconds to HH:MM:SS
  */
-fun Int.toHumanReadableHMSTime(): String {
-    val hours = this / 3600
-    val minutes = (this % 3600) / 60
-    val seconds = this % 60
-    return if (hours != 0) {
-        String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds)
-    } else {
-        String.format(Locale.US, "%02d:%02d", minutes, seconds)
+
+fun Number.toHumanTime(): String {
+    this.toLong().milliseconds.toComponents { hours, minutes, seconds, _ ->
+        return if (hours == 0L)
+            "%02d:%02d".format(Locale.ENGLISH, minutes, seconds)
+        else
+            "%02d:%02d:%02d".format(Locale.ENGLISH, hours, minutes, seconds)
     }
 }
 

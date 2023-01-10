@@ -552,8 +552,15 @@ class GeneralCalendar private constructor() {
     }
 
     companion object {
+
         fun getInstance(): GeneralCalendar {
             return GeneralCalendar(Calendar.getInstance().time)
+        }
+
+        fun of(date: String?): GeneralCalendar? {
+            return runCatching {
+                GeneralCalendar(date!!)
+            }.getOrNull()
         }
 
         var GeneralCalendarType = CalendarType.PERSIAN
