@@ -24,7 +24,6 @@ import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.*
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.Group
 import androidx.core.animation.addListener
 import androidx.core.content.ContextCompat
