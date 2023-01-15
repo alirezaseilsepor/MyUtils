@@ -459,8 +459,8 @@ class GeneralCalendar private constructor() {
                 "مرداد",
                 "شهریور",
                 "مهر",
-                "ابان",
-                "اذر",
+                "آبان",
+                "آذر",
                 "دی",
                 "بهمن",
                 "اسفند"
@@ -502,6 +502,8 @@ class GeneralCalendar private constructor() {
 
     //bigger
     fun isAfter(gc: GeneralCalendar): Boolean {
+        if (this == gc)
+            return false
         return grgDate.after(gc.grgDate)
     }
 
@@ -512,6 +514,8 @@ class GeneralCalendar private constructor() {
 
     //smaller
     fun isBefore(gc: GeneralCalendar): Boolean {
+        if (this == gc)
+            return false
         return grgDate.before(gc.grgDate)
     }
 
