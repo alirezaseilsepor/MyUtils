@@ -24,7 +24,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.toBitmap
@@ -174,10 +173,11 @@ fun Context.shareText(text: String) {
     startActivity(sendIntent)
 }
 
-fun Context.copyToClipboard(text: String="Copy Clipboard") {
+fun Context.copyToClipboard(text: String, message: String = "Copy Clipboard") {
     val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
     clipboard?.setPrimaryClip(ClipData.newPlainText("", text))
-    toast(text)
+    if (message.isNotEmpty())
+        toast(message)
 }
 
 fun Context.getLocalizedResources(desiredLocale: Locale): Resources {
@@ -200,7 +200,6 @@ fun Context.isPermissionGrantedForMediaLocationAccess(): Boolean {
         }
     return result == PackageManager.PERMISSION_GRANTED
 }
-
 
 
 fun Context.getHexColorResCompat(@ColorRes color: Int) =
