@@ -61,7 +61,7 @@ abstract class EndlessRecyclerViewScrollListener(
             loading = false
             previousTotalItemCount = totalItemCount
         }
-        if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
+        if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount && !isLastPage()) {
             currentPage++
             onLoadMore(currentPage)
             loading = true
@@ -75,5 +75,7 @@ abstract class EndlessRecyclerViewScrollListener(
     }
 
     abstract fun onLoadMore(page: Int)
+
+    abstract fun isLastPage(): Boolean
 
 }

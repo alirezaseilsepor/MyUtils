@@ -174,10 +174,10 @@ fun Context.shareText(text: String) {
     startActivity(sendIntent)
 }
 
-fun Context.copyToClipboard(text: String) {
+fun Context.copyToClipboard(text: String="Copy Clipboard") {
     val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
     clipboard?.setPrimaryClip(ClipData.newPlainText("", text))
-    toast("Copy")
+    toast(text)
 }
 
 fun Context.getLocalizedResources(desiredLocale: Locale): Resources {
@@ -201,15 +201,7 @@ fun Context.isPermissionGrantedForMediaLocationAccess(): Boolean {
     return result == PackageManager.PERMISSION_GRANTED
 }
 
-fun Activity.requestPermissionForAccessMediaLocation() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(android.Manifest.permission.ACCESS_MEDIA_LOCATION),
-            578
-        )
-    }
-}
+
 
 fun Context.getHexColorResCompat(@ColorRes color: Int) =
     String.format("#%06X", 0xFFFFFF and getColorCompat(color))
