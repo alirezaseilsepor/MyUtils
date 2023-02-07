@@ -69,7 +69,7 @@ abstract class EndlessRecyclerViewScrollListener(
     }
 
     fun reset() {
-        currentPage = 0
+        currentPage = 1
         previousTotalItemCount = 0
         loading = true
     }
