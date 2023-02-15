@@ -226,7 +226,7 @@ fun Snackbar.action(action: String, color: Int? = null, listener: (View) -> Unit
     color?.let { setActionTextColor(ContextCompat.getColor(context, color)) }
 }
 
-fun Snackbar.setBackGroundColor(@ColorRes color: Int) {
+fun Snackbar.setBackgroundColor(@ColorRes color: Int) {
     view.setBackgroundColor(ContextCompat.getColor(context, color))
 }
 
@@ -295,14 +295,9 @@ inline fun View.setSafeLayoutChangeListener(
 }
 
 fun ViewGroup.screenShot(): Bitmap? {
-    /*val b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val c = Canvas(b)
-    draw(c)
-    return b
-    */
     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
-    val bgDrawable = background
+    val bgDrawable = background?.mutate()
     if (bgDrawable != null) bgDrawable.draw(canvas) else canvas.drawColor(Color.WHITE)
     draw(canvas)
     return bitmap
@@ -328,15 +323,11 @@ inline fun TabLayout.setOnTabSelectListener(crossinline onLayout: (TabLayout.Tab
 }
 
 fun View.setOnBackGroundColorAttr(@AttrRes attr: Int, alpha: Int = 255) {
-    setBackgroundColor(
-        context.getColorCompatAttr(attr, alpha)
-    )
+    setBackgroundColor(context.getColorCompatAttr(attr, alpha))
 }
 
 fun TextView.setTextColorAttr(@AttrRes attr: Int, alpha: Int = 255) {
-    setTextColor(
-        context.getColorCompatAttr(attr, alpha)
-    )
+    setTextColor(context.getColorCompatAttr(attr, alpha))
 }
 
 fun TextView.startCountAnimation(
@@ -361,13 +352,13 @@ fun TextView.startCountAnimation(
 
 fun View.setShapeColorFilterAttr(@AttrRes attr: Int, alpha: Int = 255) {
     val color = context.getColorCompatAttr(attr, alpha)
-    val drawable = DrawableCompat.wrap(background)
-    DrawableCompat.setTint(drawable, color)
-    background = drawable
+    setShapeColorFilter(color)
 }
 
 fun View.setShapeColorFilter(color: Int) {
-    val drawable = DrawableCompat.wrap(background)
+    if (background == null)
+        return
+    val drawable = DrawableCompat.wrap(background.mutate())
     DrawableCompat.setTint(drawable, color)
     background = drawable
 }

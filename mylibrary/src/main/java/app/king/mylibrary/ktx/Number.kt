@@ -8,6 +8,7 @@ import java.text.StringCharacterIterator
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
+import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.milliseconds
 
 fun Float.toExactDouble(): Double =
@@ -66,8 +67,9 @@ fun Long?.getPrettyFormatForNumbers(): String {
  * converts seconds to HH:MM:SS
  */
 
-fun Number.toHumanTime(): String {
-    this.toLong().milliseconds.toComponents { hours, minutes, seconds, _ ->
+fun Long.toHumanTime(timeUnit: TimeUnit): String {
+    val timeMilli = timeUnit.toMillis(this)
+    timeMilli.milliseconds.toComponents { hours, minutes, seconds, _ ->
         return if (hours == 0L)
             "%02d:%02d".format(Locale.ENGLISH, minutes, seconds)
         else
@@ -75,11 +77,6 @@ fun Number.toHumanTime(): String {
     }
 }
 
-fun Int.toConvertMillisToString(): String? {
-    val second = this / 1000 % 60
-    val minute = this / (1000 * 60) % 60
-    return java.lang.String.format(Locale.US, "%02d:%02d", minute, second)
-}
 
 fun humanReadableByteCountSI(bytes: Long): String {
     var byte = bytes
@@ -97,23 +94,40 @@ fun humanReadableByteCountSI(bytes: Long): String {
 fun Number.withZeroNumber(): String = String.format(Locale.US, "%02d", this)
 
 
-val Int.dp: Float
+val Int.dp: Int
+    get() = (this / Resources.getSystem().displayMetrics.density).roundToInt()
+val Int.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).roundToInt()
+val Int.sp: Int
+    get() = ((this / Resources.getSystem().displayMetrics.scaledDensity)).roundToInt()
+val Int.spToPx: Int
+    get() = ((this * Resources.getSystem().displayMetrics.scaledDensity)).roundToInt()
+
+
+val Int.dpf: Float
     get() = (this / Resources.getSystem().displayMetrics.density)
-val Int.px: Float
+val Int.pxf: Float
     get() = (this * Resources.getSystem().displayMetrics.density)
+val Int.spf: Float
+    get() = ((this / Resources.getSystem().displayMetrics.scaledDensity))
+val Int.spToPxf: Float
+    get() = ((this * Resources.getSystem().displayMetrics.scaledDensity))
 
-val Float.dp: Float
+
+val Float.dp: Int
+    get() = (this / Resources.getSystem().displayMetrics.density).roundToInt()
+val Float.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).roundToInt()
+val Float.sp: Int
+    get() = ((this / Resources.getSystem().displayMetrics.scaledDensity)).roundToInt()
+val Float.spToPx: Int
+    get() = ((this * Resources.getSystem().displayMetrics.scaledDensity)).roundToInt()
+
+val Float.dpf: Float
     get() = (this / Resources.getSystem().displayMetrics.density)
-val Float.px: Float
+val Float.pxf: Float
     get() = (this * Resources.getSystem().displayMetrics.density)
-
-val Double.dp: Float
-    get() = (this.toFloat() / Resources.getSystem().displayMetrics.density)
-val Double.px: Float
-    get() = (this.toFloat() * Resources.getSystem().displayMetrics.density)
-
-val Float.sp: Float get() = ((this / Resources.getSystem().displayMetrics.scaledDensity))
-val Int.sp: Float get() = ((this / Resources.getSystem().displayMetrics.scaledDensity))
-
-val Float.spToPx: Float get() = ((this * Resources.getSystem().displayMetrics.scaledDensity))
-val Int.spToPx: Float get() = ((this * Resources.getSystem().displayMetrics.scaledDensity))
+val Float.spf: Float
+    get() = ((this / Resources.getSystem().displayMetrics.scaledDensity))
+val Float.spToPxf: Float
+    get() = ((this * Resources.getSystem().displayMetrics.scaledDensity))
