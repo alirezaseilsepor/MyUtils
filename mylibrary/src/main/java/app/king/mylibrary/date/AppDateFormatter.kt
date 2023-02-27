@@ -57,9 +57,9 @@ class AppDateFormatter {
                     GeneralCalendar.CalendarType.PERSIAN -> {
                         return parsPersianDate(dateString)
                     }
-                    GeneralCalendar.CalendarType.HIJRI -> {
+                   /* GeneralCalendar.CalendarType.HIJRI -> {
                         return parsHijriDate(dateString)
-                    }
+                    }*/
                 }
             }
         }.onFailure {
@@ -134,7 +134,7 @@ class AppDateFormatter {
     /**
     Example= 1444/2/17 or 1444/02/17 or 1444-02-17 or 1444.2.17
      */
-    @Throws(ParseException::class)
+    /*@Throws(ParseException::class)
     fun parsHijriDate(dateString: String): GeneralCalendar? {
         val cacheDateString = dateString.replace("-", "/")
         val formatter = ChronoFormatter.setUp(HijriCalendar::class.java, Locale.ENGLISH)
@@ -154,7 +154,7 @@ class AppDateFormatter {
         } else {
             GeneralCalendar(date)
         }
-    }
+    }*/
 
     /**
     just parse Georgian Date
@@ -211,9 +211,9 @@ class AppDateFormatter {
             GeneralCalendar.CalendarType.PERSIAN -> {
                 formatPersianDate(generalCalendar, pattern)
             }
-            GeneralCalendar.CalendarType.HIJRI -> {
+         /*   GeneralCalendar.CalendarType.HIJRI -> {
                 formatHijriDate(generalCalendar, pattern)
-            }
+            }*/
         }
     }
 
@@ -332,7 +332,7 @@ class AppDateFormatter {
     /**
     format HijriCalendar to String
      */
-    @Throws(ParseException::class)
+  /*  @Throws(ParseException::class)
     fun formatHijriDate(
         generalCalendar: GeneralCalendar,
         pattern: DateFormat = DateFormat.DEFAULT,
@@ -383,7 +383,7 @@ class AppDateFormatter {
         }
         return result
     }
-
+*/
 
     fun getDateForServer(generalCalendar: GeneralCalendar, isEnableUtc: Boolean = false): String {
         val dateFormat = SimpleDateFormat(SERVER_GEORGIAN_DATE, Locale.ENGLISH)
