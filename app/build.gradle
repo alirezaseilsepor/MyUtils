@@ -32,7 +32,8 @@ android {
 }
 
 dependencies {
-
+    implementation project(path: ':mylibrary')
+    implementation group: 'net.time4j', name: 'time4j-android', version: '4.8-2021a'
     implementation 'androidx.core:core-ktx:1.9.0-alpha05'
     implementation 'androidx.appcompat:appcompat:1.6.0-alpha05'
     implementation 'com.google.android.material:material:1.6.1'

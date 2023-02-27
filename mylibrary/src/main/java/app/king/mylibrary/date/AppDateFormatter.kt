@@ -6,7 +6,6 @@ import app.king.mylibrary.ktx.withZeroNumber
 import net.time4j.Moment
 import net.time4j.PlainDate
 import net.time4j.TemporalType
-import net.time4j.calendar.HijriCalendar
 import net.time4j.calendar.PersianCalendar
 import net.time4j.format.expert.ChronoFormatter
 import net.time4j.format.expert.ParseLog
@@ -57,9 +56,9 @@ class AppDateFormatter {
                     GeneralCalendar.CalendarType.PERSIAN -> {
                         return parsPersianDate(dateString)
                     }
-                   /* GeneralCalendar.CalendarType.HIJRI -> {
-                        return parsHijriDate(dateString)
-                    }*/
+                    /* GeneralCalendar.CalendarType.HIJRI -> {
+                         return parsHijriDate(dateString)
+                     }*/
                 }
             }
         }.onFailure {
@@ -211,9 +210,9 @@ class AppDateFormatter {
             GeneralCalendar.CalendarType.PERSIAN -> {
                 formatPersianDate(generalCalendar, pattern)
             }
-         /*   GeneralCalendar.CalendarType.HIJRI -> {
-                formatHijriDate(generalCalendar, pattern)
-            }*/
+            /*   GeneralCalendar.CalendarType.HIJRI -> {
+                   formatHijriDate(generalCalendar, pattern)
+               }*/
         }
     }
 
@@ -332,58 +331,58 @@ class AppDateFormatter {
     /**
     format HijriCalendar to String
      */
-  /*  @Throws(ParseException::class)
-    fun formatHijriDate(
-        generalCalendar: GeneralCalendar,
-        pattern: DateFormat = DateFormat.DEFAULT,
-    ): String {
-        val calendar = Calendar.getInstance()
-        calendar.time = generalCalendar.getGeorgianDate()
-        var result = ""
-        val hijriCalendar = generalCalendar.getHijriCalendar()
+    /*  @Throws(ParseException::class)
+      fun formatHijriDate(
+          generalCalendar: GeneralCalendar,
+          pattern: DateFormat = DateFormat.DEFAULT,
+      ): String {
+          val calendar = Calendar.getInstance()
+          calendar.time = generalCalendar.getGeorgianDate()
+          var result = ""
+          val hijriCalendar = generalCalendar.getHijriCalendar()
 
-        pattern.format.forEach { ch ->
-            val data: String
-            when (ch) {
-                YEAR -> {
-                    data = hijriCalendar.year.toString()
-                }
-                MONTH -> {
-                    data = hijriCalendar.month.value.withZeroNumber()
-                }
-                MONTH_N -> {
-                    data = hijriCalendar.month.getDisplayName(Locale("fa"))
-                }
-                DAY -> {
-                    data = hijriCalendar.dayOfMonth.withZeroNumber()
-                }
-                DAY_N -> {
-                    data = generalCalendar.getDayName(GeneralCalendar.CalendarType.HIJRI)
-                }
-                DAY_NONE_ZERO -> {
-                    data = hijriCalendar.dayOfMonth.toString()
-                }
-                HOUR -> {
-                    data = calendar.get(Calendar.HOUR_OF_DAY).withZeroNumber()
-                }
-                MINUTES -> {
-                    data = calendar.get(Calendar.MINUTE).withZeroNumber()
-                }
-                SECOND -> {
-                    data = calendar.get(Calendar.SECOND).withZeroNumber()
-                }
-                MILLI -> {
-                    data = calendar.get(Calendar.MILLISECOND).withZeroNumber()
-                }
-                else -> {
-                    data = ch.toString()
-                }
-            }
-            result += data
-        }
-        return result
-    }
-*/
+          pattern.format.forEach { ch ->
+              val data: String
+              when (ch) {
+                  YEAR -> {
+                      data = hijriCalendar.year.toString()
+                  }
+                  MONTH -> {
+                      data = hijriCalendar.month.value.withZeroNumber()
+                  }
+                  MONTH_N -> {
+                      data = hijriCalendar.month.getDisplayName(Locale("fa"))
+                  }
+                  DAY -> {
+                      data = hijriCalendar.dayOfMonth.withZeroNumber()
+                  }
+                  DAY_N -> {
+                      data = generalCalendar.getDayName(GeneralCalendar.CalendarType.HIJRI)
+                  }
+                  DAY_NONE_ZERO -> {
+                      data = hijriCalendar.dayOfMonth.toString()
+                  }
+                  HOUR -> {
+                      data = calendar.get(Calendar.HOUR_OF_DAY).withZeroNumber()
+                  }
+                  MINUTES -> {
+                      data = calendar.get(Calendar.MINUTE).withZeroNumber()
+                  }
+                  SECOND -> {
+                      data = calendar.get(Calendar.SECOND).withZeroNumber()
+                  }
+                  MILLI -> {
+                      data = calendar.get(Calendar.MILLISECOND).withZeroNumber()
+                  }
+                  else -> {
+                      data = ch.toString()
+                  }
+              }
+              result += data
+          }
+          return result
+      }
+  */
 
     fun getDateForServer(generalCalendar: GeneralCalendar, isEnableUtc: Boolean = false): String {
         val dateFormat = SimpleDateFormat(SERVER_GEORGIAN_DATE, Locale.ENGLISH)
