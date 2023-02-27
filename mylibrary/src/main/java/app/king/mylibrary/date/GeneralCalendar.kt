@@ -446,8 +446,8 @@ class GeneralCalendar private constructor() {
         return calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) ?: ""
     }
 
-    fun getDateForServer(isEnableUtc: Boolean = false): String {
-        return appDateFormatter.getDateForServer(this, isEnableUtc)
+    fun getDateForServer(isEnableUtc: Boolean = false, isEnableTime: Boolean = false): String {
+        return appDateFormatter.getDateForServer(this, isEnableUtc, isEnableTime)
     }
 
     fun getListMonths(): Array<String> {

@@ -31,6 +31,7 @@ class AppDateFormatter {
         const val SECOND = 's'
         const val MILLI = 'S'
         const val SERVER_GEORGIAN_DATE = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        const val SERVER_GEORGIAN_DATE_WITHOUT_TIME = "yyyy-MM-dd"
         private const val PATTERN_COMPLETE_DATE = "uuuu-M-d'T'HH[:mm][:ss][.SSS]"
         private const val PATTERN_GEORGIAN_DATE = "uuuu/M/d|uuuu.M.d"
         private const val PATTERN_PERSIAN_DATE = "yyyy/M/d|yyyy.M.d"
@@ -384,8 +385,13 @@ class AppDateFormatter {
       }
   */
 
-    fun getDateForServer(generalCalendar: GeneralCalendar, isEnableUtc: Boolean = false): String {
-        val dateFormat = SimpleDateFormat(SERVER_GEORGIAN_DATE, Locale.ENGLISH)
+    fun getDateForServer(
+        generalCalendar: GeneralCalendar,
+        isEnableUtc: Boolean = false,
+        isEnableTime: Boolean = false,
+    ): String {
+        val format = if (isEnableTime) SERVER_GEORGIAN_DATE else SERVER_GEORGIAN_DATE_WITHOUT_TIME
+        val dateFormat = SimpleDateFormat(format, Locale.ENGLISH)
         if (isEnableUtc)
             dateFormat.timeZone = TimeZone.getTimeZone("UTC")
         return dateFormat.format(generalCalendar.getGeorgianDate())
