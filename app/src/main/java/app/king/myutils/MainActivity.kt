@@ -10,9 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ApplicationStarter.initialize(this, false)
-        val c=GeneralCalendar.getInstance()
-        val e=c.getDateForServer()
+        val c=GeneralCalendar("2023-03-11")
         val e1=c.getDateForServer(isEnableTime = true)
-        val d=e
+        val d=e1
     }
 }
