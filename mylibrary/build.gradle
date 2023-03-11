@@ -9,7 +9,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'ir.king-app'
-    PUBLISH_VERSION = '1.2.2'
+    PUBLISH_VERSION = '1.2.3'
     PUBLISH_ARTIFACT_ID = 'utils'
     PUBLISH_DESCRIPTION = 'utils Android SDK'
     PUBLISH_URL = 'https://github.com/alirezaseilsepor/MyUtils'
@@ -36,7 +36,7 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 33
-        versionName "1.2.2"
+        versionName "1.2.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
