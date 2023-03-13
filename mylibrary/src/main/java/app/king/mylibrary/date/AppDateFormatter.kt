@@ -50,19 +50,17 @@ class AppDateFormatter {
             if (dateString.length > 10)
                 parsCompleteDate(dateString, isEnableUtc)
             else {
-                val dateFormat = SimpleDateFormat(SERVER_GEORGIAN_DATE_WITHOUT_TIME, Locale.ENGLISH)
-                GeneralCalendar(dateFormat.parse(dateString)!!)
-              /*  when (generalCalendarType) {
+                when (generalCalendarType) {
                     GeneralCalendar.CalendarType.GEORGIAN -> {
                         return parsGeorgianDate(dateString)
                     }
                     GeneralCalendar.CalendarType.PERSIAN -> {
                         return parsPersianDate(dateString)
                     }
-                    *//* GeneralCalendar.CalendarType.HIJRI -> {
+                     /*GeneralCalendar.CalendarType.HIJRI -> {
                          return parsHijriDate(dateString)
-                     }*//*
-                }*/
+                     }*/
+                }
             }
         }.onFailure {
             Log.e(LOG, "ERROR MESSAGE= convert $dateString ${it.message}")
@@ -390,7 +388,7 @@ class AppDateFormatter {
     fun getDateForServer(
         generalCalendar: GeneralCalendar,
         isEnableUtc: Boolean = false,
-        isEnableTime: Boolean = false,
+        isEnableTime: Boolean = true,
     ): String {
         val format = if (isEnableTime) SERVER_GEORGIAN_DATE else SERVER_GEORGIAN_DATE_WITHOUT_TIME
         val dateFormat = SimpleDateFormat(format, Locale.ENGLISH)

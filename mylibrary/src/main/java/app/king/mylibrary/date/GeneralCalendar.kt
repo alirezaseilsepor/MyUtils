@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 import app.king.mylibrary.ktx.withZeroNumber
 import net.time4j.PlainDate
 import net.time4j.Weekday
-import net.time4j.calendar.HijriCalendar
 import net.time4j.calendar.PersianCalendar
 import net.time4j.engine.CalendarDays
 import java.util.*
@@ -25,32 +24,32 @@ class GeneralCalendar private constructor() {
 
     private lateinit var grgDate: Date
     private lateinit var persianDate: PersianCalendar
-   // private lateinit var hijriDate: HijriCalendar
+    // private lateinit var hijriDate: HijriCalendar
 
 
     constructor(grgDate: Date) : this() {
         this.grgDate = grgDate
         this.persianDate = grgDate.toPersianCalendar()
-       // this.hijriDate = grgDate.toHijriCalendar()
+        // this.hijriDate = grgDate.toHijriCalendar()
     }
 
     constructor(persianDate: PersianCalendar) : this() {
         this.grgDate = persianDate.toGregorian()
         this.persianDate = persianDate
-      //  this.hijriDate = persianDate.toHijriCalendar()
+        //  this.hijriDate = persianDate.toHijriCalendar()
     }
 
-    constructor(hijriDate: HijriCalendar) : this() {
-        this.grgDate = hijriDate.toGregorian()
-        this.persianDate = hijriDate.toPersianCalendar()
-     //   this.hijriDate = hijriDate
-    }
-
+    /* constructor(hijriDate: HijriCalendar) : this() {
+         this.grgDate = hijriDate.toGregorian()
+         this.persianDate = hijriDate.toPersianCalendar()
+      //   this.hijriDate = hijriDate
+     }
+ */
     constructor(dateString: String) : this() {
         val gc = appDateFormatter.parse(dateString)!!
         this.grgDate = gc.grgDate
         this.persianDate = gc.persianDate
-      //  this.hijriDate = gc.hijriDate
+        //  this.hijriDate = gc.hijriDate
     }
 
     constructor(
@@ -67,7 +66,7 @@ class GeneralCalendar private constructor() {
                 calendar.set(Calendar.YEAR, year)
                 this.grgDate = calendar.time
                 this.persianDate = grgDate.toPersianCalendar()
-          //      this.hijriDate = grgDate.toHijriCalendar()
+                //      this.hijriDate = grgDate.toHijriCalendar()
             }
             /*    CalendarType.HIJRI -> {
                     val calendar = HijriCalendar.of(HijriCalendar.VARIANT_UMALQURA, year, month, day)
@@ -79,7 +78,7 @@ class GeneralCalendar private constructor() {
                 val calendar = PersianCalendar.of(year, month, day)
                 this.grgDate = calendar.toGregorian()
                 this.persianDate = calendar
-            //    this.hijriDate = calendar.toHijriCalendar()
+                //    this.hijriDate = calendar.toHijriCalendar()
             }
         }
         /* this.grgDate = hijriDate.toGregorian()
@@ -283,7 +282,7 @@ class GeneralCalendar private constructor() {
                 calendar.set(Calendar.DAY_OF_MONTH, 1)
                 this.grgDate = calendar.time
                 this.persianDate = grgDate.toPersianCalendar()
-               // this.hijriDate = grgDate.toHijriCalendar()
+                // this.hijriDate = grgDate.toHijriCalendar()
             }
             /*   CalendarType.HIJRI -> {
                    this.hijriDate = HijriCalendar.of(
@@ -299,7 +298,7 @@ class GeneralCalendar private constructor() {
             CalendarType.PERSIAN -> {
                 this.persianDate = PersianCalendar.of(persianDate.year, persianDate.month.value, 1)
                 this.grgDate = persianDate.toGregorian()
-               // this.hijriDate = persianDate.toHijriCalendar()
+                // this.hijriDate = persianDate.toHijriCalendar()
             }
         }
         return this
@@ -313,7 +312,7 @@ class GeneralCalendar private constructor() {
                 calendar.set(Calendar.DAY_OF_MONTH, getLengthsOfMonths())
                 this.grgDate = calendar.time
                 this.persianDate = grgDate.toPersianCalendar()
-              //  this.hijriDate = grgDate.toHijriCalendar()
+                //  this.hijriDate = grgDate.toHijriCalendar()
             }
             /*   CalendarType.HIJRI -> {
                    this.hijriDate = HijriCalendar.of(
@@ -333,7 +332,7 @@ class GeneralCalendar private constructor() {
                     getLengthsOfMonths()
                 )
                 this.grgDate = persianDate.toGregorian()
-               // this.hijriDate = persianDate.toHijriCalendar()
+                // this.hijriDate = persianDate.toHijriCalendar()
             }
         }
         return this
@@ -357,7 +356,7 @@ class GeneralCalendar private constructor() {
                 calendar.add(Calendar.DATE, day)
                 this.grgDate = calendar.time
                 this.persianDate = grgDate.toPersianCalendar()
-             //   this.hijriDate = grgDate.toHijriCalendar()
+                //   this.hijriDate = grgDate.toHijriCalendar()
             }
             /*  CalendarType.HIJRI -> {
                   this.hijriDate = this.hijriDate.plus(day, HijriCalendar.Unit.DAYS)
@@ -368,7 +367,7 @@ class GeneralCalendar private constructor() {
             CalendarType.PERSIAN -> {
                 this.persianDate = this.persianDate.plus(day.toLong(), PersianCalendar.Unit.DAYS)
                 this.grgDate = persianDate.toGregorian()
-              //  this.hijriDate = persianDate.toHijriCalendar()
+                //  this.hijriDate = persianDate.toHijriCalendar()
             }
         }
         return this
@@ -382,7 +381,7 @@ class GeneralCalendar private constructor() {
                 calendar.add(Calendar.MONTH, month)
                 this.grgDate = calendar.time
                 this.persianDate = grgDate.toPersianCalendar()
-              //  this.hijriDate = grgDate.toHijriCalendar()
+                //  this.hijriDate = grgDate.toHijriCalendar()
             }
             /*CalendarType.HIJRI -> {
                 this.hijriDate = this.hijriDate.plus(month, HijriCalendar.Unit.MONTHS)
@@ -394,7 +393,7 @@ class GeneralCalendar private constructor() {
                 this.persianDate =
                     this.persianDate.plus(month.toLong(), PersianCalendar.Unit.MONTHS)
                 this.grgDate = persianDate.toGregorian()
-            //    this.hijriDate = persianDate.toHijriCalendar()
+                //    this.hijriDate = persianDate.toHijriCalendar()
             }
         }
         return this
@@ -408,7 +407,7 @@ class GeneralCalendar private constructor() {
                 calendar.add(Calendar.YEAR, year)
                 this.grgDate = calendar.time
                 this.persianDate = grgDate.toPersianCalendar()
-              //  this.hijriDate = grgDate.toHijriCalendar()
+                //  this.hijriDate = grgDate.toHijriCalendar()
             }
             /* CalendarType.HIJRI -> {
                  this.hijriDate = this.hijriDate.plus(year, HijriCalendar.Unit.YEARS)
@@ -419,7 +418,7 @@ class GeneralCalendar private constructor() {
             CalendarType.PERSIAN -> {
                 this.persianDate = this.persianDate.plus(year.toLong(), PersianCalendar.Unit.YEARS)
                 this.grgDate = persianDate.toGregorian()
-             //   this.hijriDate = persianDate.toHijriCalendar()
+                //   this.hijriDate = persianDate.toHijriCalendar()
             }
         }
 
