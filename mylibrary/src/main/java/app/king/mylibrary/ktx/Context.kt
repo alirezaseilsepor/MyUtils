@@ -131,7 +131,7 @@ fun Context.isNetworkAvailable(): Boolean {
             }
         }
     }.onFailure {
-        result = false
+        result = true
     }
     return result
 }
