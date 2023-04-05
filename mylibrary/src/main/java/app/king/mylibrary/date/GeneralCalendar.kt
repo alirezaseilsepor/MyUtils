@@ -46,9 +46,9 @@ class GeneralCalendar private constructor() {
      }
  */
     constructor(dateString: String) : this() {
-        val gc = appDateFormatter.parse(dateString)!!
-        this.grgDate = gc.grgDate
-        this.persianDate = gc.persianDate
+        val date = appDateFormatter.parse(dateString)!!
+        this.grgDate = date
+        this.persianDate = date.toPersianCalendar()
         //  this.hijriDate = gc.hijriDate
     }
 

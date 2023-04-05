@@ -45,7 +45,7 @@ class AppDateFormatter {
         dateString: String,
         isEnableUtc: Boolean = false,
         generalCalendarType: GeneralCalendar.CalendarType = GeneralCalendar.GeneralCalendarType,
-    ): GeneralCalendar? {
+    ): Date? {
         val result = runCatching {
             if (dateString.length > 10)
                 parsCompleteDate(dateString, isEnableUtc)
@@ -77,8 +77,10 @@ class AppDateFormatter {
     Example= 2022/2/17 or 2022/02/17 or 2022-02-17 or 2022.2.17
      */
     @Throws(ParseException::class)
-    fun parsGeorgianDate(dateString: String): GeneralCalendar? {
-        val cacheDateString = dateString.replace("-", "/")
+    fun parsGeorgianDate(dateString: String): Date? {
+        var cacheDateString = dateString.replace("-", "/")
+        cacheDateString = cacheDateString.replace(",", "/")
+        cacheDateString = cacheDateString.replace(" ", "/")
         val formatter = ChronoFormatter.setUp(PlainDate.axis(), Locale.ENGLISH)
             .addPattern(PATTERN_GEORGIAN_DATE,
                 PatternType.CLDR)
@@ -93,7 +95,7 @@ class AppDateFormatter {
             Log.e(LOG, "ERROR MESSAGE= convert $dateString ${pLog.errorMessage}")
             null
         } else {
-            val date = TemporalType.JAVA_UTIL_DATE.from(plainDate.atStartOfDay().inStdTimezone())
+            val date = TemporalType.JAVA_UTIL_DATE.from(plainDate.atFirstMoment("UTC"))
             val calendar = Calendar.getInstance()
             calendar.time = GeneralCalendar.getInstance().getGeorgianDate()
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -101,7 +103,7 @@ class AppDateFormatter {
             calendar.time = date
             calendar.set(Calendar.HOUR_OF_DAY, hour)
             calendar.set(Calendar.MINUTE, minute)
-            GeneralCalendar(calendar.time)
+            calendar.time
         }
     }
 
@@ -110,7 +112,7 @@ class AppDateFormatter {
     Example= 1401/2/17 or 1401/02/17 or 1401-02-17 or 1401.2.17
      */
     @Throws(ParseException::class)
-    fun parsPersianDate(dateString: String): GeneralCalendar? {
+    fun parsPersianDate(dateString: String): Date? {
         val cacheDateString = dateString.replace("-", "/")
         val formatter = ChronoFormatter.setUp(PersianCalendar.axis(), Locale.ENGLISH)
             .addPattern(PATTERN_PERSIAN_DATE,
@@ -126,7 +128,7 @@ class AppDateFormatter {
             Log.e(LOG, "ERROR MESSAGE= convert PersianDate $dateString ${pLog.errorMessage}")
             null
         } else {
-            GeneralCalendar(date)
+            date.toGregorian()
         }
     }
 
@@ -165,7 +167,7 @@ class AppDateFormatter {
     2012-07-01T05:29:21.123GMT+5:30
      */
     @Throws(ParseException::class)
-    fun parsCompleteDate(dateString: String, isEnableUtc: Boolean = false): GeneralCalendar? {
+    fun parsCompleteDate(dateString: String, isEnableUtc: Boolean = false): Date? {
         if (isEnableUtc) {
             var standardDate = dateString
             if (!dateString.contains(".")) {
@@ -186,11 +188,11 @@ class AppDateFormatter {
                 Log.e(LOG, "ERROR MESSAGE= convert CompleteDate $standardDate ${pLog.errorMessage}")
                 null
             } else {
-                GeneralCalendar(date)
+               date
             }
         } else {
             val dateFormat = SimpleDateFormat(SERVER_GEORGIAN_DATE, Locale.ENGLISH)
-            return GeneralCalendar(dateFormat.parse(dateString)!!)
+            return dateFormat.parse(dateString)!!
         }
     }
 
