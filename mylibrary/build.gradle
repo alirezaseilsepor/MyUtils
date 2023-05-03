@@ -9,7 +9,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'ir.king-app'
-    PUBLISH_VERSION = '1.2.7'
+    PUBLISH_VERSION = '1.3.0'
     PUBLISH_ARTIFACT_ID = 'utils'
     PUBLISH_DESCRIPTION = 'utils Android SDK'
     PUBLISH_URL = 'https://github.com/alirezaseilsepor/MyUtils'
@@ -31,12 +31,13 @@ kapt {
 }
 
 android {
+    namespace 'app.king.mylibrary'
     compileSdk 33
 
     defaultConfig {
         minSdk 21
         targetSdk 33
-        versionName "1.2.7"
+        versionName "1.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -53,30 +54,29 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.fragment:fragment-ktx:1.5.5'
-    implementation 'androidx.activity:activity-ktx:1.6.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.7'
+    implementation 'androidx.activity:activity-ktx:1.7.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-    implementation "io.coil-kt:coil:2.2.2"
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation group: 'net.time4j', name: 'time4j-android', version: '4.8-2021a'
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
 
 
     testImplementation 'junit:junit:4.13.2'

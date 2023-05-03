@@ -38,9 +38,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import app.king.mylibrary.R
 import app.king.mylibrary.util.OnSafeClickListener
-import coil.load
-import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
@@ -455,25 +452,6 @@ fun RecyclerView.smoothSnapToPosition(
 
 fun MaterialButton.strokeColorCompat(@AttrRes attr: Int, alpha: Int = 255) {
     strokeColor = ColorStateList.valueOf(context.getColorCompatAttr(attr, alpha))
-}
-
-
-fun ImageView.loadCircle(
-    data: Any?,
-    @DrawableRes placeholder: Int = R.drawable.shape_circle_white,
-) {
-    load(data) {
-        error(placeholder)
-        placeholder(placeholder)
-        transformations(CircleCropTransformation())
-    }
-}
-
-fun ImageView.loadRoundedCorners(data: Any?, radius: Float = 10f) {
-    load(data) {
-        crossfade(true)
-        transformations(RoundedCornersTransformation(radius))
-    }
 }
 
 fun View.delayOnLifecycle(
