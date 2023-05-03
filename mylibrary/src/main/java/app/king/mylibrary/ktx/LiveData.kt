@@ -1,10 +1,7 @@
 package app.king.mylibrary.ktx
 
 import androidx.lifecycle.*
-import app.king.mylibrary.util.Event
 
-fun <T, R> LiveData<T>.map(action: (t: T) -> R): LiveData<R> =
-    Transformations.map(this, action)
 
 internal fun <T : Any?> MutableLiveData<T>.setValueIfNotEqual(arg: T) {
     @Suppress("SuspiciousEqualsCombination")
