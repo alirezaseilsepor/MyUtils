@@ -229,4 +229,13 @@ fun Context.getScreenWidth(): Int {
     }
 }
 
+fun Context.getInstallerPackageName(): String? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        packageManager.getInstallSourceInfo(packageName).installingPackageName
+    } else {
+        @Suppress("DEPRECATION")
+        packageManager.getInstallerPackageName(packageName)
+    }
+}
+
 

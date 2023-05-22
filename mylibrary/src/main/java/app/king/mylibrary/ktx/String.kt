@@ -2,6 +2,7 @@
 
 package app.king.mylibrary.ktx
 
+import androidx.core.text.isDigitsOnly
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -124,6 +125,8 @@ fun String.toMultiPart(name: String): MultipartBody.Part {
         this
     )
 }
+
+fun String.isNumber() = isDigitsOnly() && isNotEmpty()
 
 
 

@@ -522,3 +522,12 @@ fun TextView.setDrawableCompat(
 fun RadioButton.setTintColorAttr(attr: Int, alpha: Int = 255) {
     buttonTintList = ColorStateList.valueOf(context.getColorCompatAttr(attr, alpha))
 }
+
+fun EditText.openKeyboard() {
+    isFocusable = true
+    isFocusableInTouchMode = true
+    requestFocus()
+    val imm: InputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
